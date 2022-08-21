@@ -1,0 +1,26 @@
+{
+    "version": "0.1.0",
+    "name": "Pomodoro Reward",
+    "manifest_version": 3,
+    "options_ui": {
+        "page": "data/options/index.html",
+        "open_in_tab": true
+    },
+    "permissions": [
+      "tabs", "storage"
+    ],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+      "service_worker": "worker.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["data/page/content.js"],
+        "run_at": "document_start"
+      }
+    ],
+    "action": {
+
+    }
+}

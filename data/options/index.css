@@ -1,0 +1,19 @@
+:root {
+    --bg-color: rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-size: 13px;
+}
+
+.header h1 {
+    display: inline-block;
+}
+
+.space {
+    display: block;
+}
+
+#list[data-visible=false] {
+    display: none;
+}
