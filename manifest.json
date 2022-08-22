@@ -23,5 +23,11 @@
     ],
     "action": {
 
-    }
+    },
+    "web_accessible_resources": [
+      {
+        "matches": ["<all_urls>"],
+        "resources": ["images/*"]
+      }
+    ]
 }

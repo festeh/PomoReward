@@ -1,20 +1,39 @@
 function block() {
   const id = "banner";
   if (!document.getElementById(id)) {
-    const node = document.createElement("div");
+    const node = document.createElement("img");
+    node.setAttribute("src", chrome.runtime.getURL("images/peka.png"))
+    node.setAttribute("alt", "peka")
     node.id = id;
 
     document.body.appendChild(node);
   }
   let node = document.getElementById(id)
   let xPos = 0;
+  let yPos = 0;
+
+  node.style.left = xPos + "px";
+  node.style.top = yPos + "px";
+
+  let xVel = 10;
+  let yVel = 10;
   setInterval(() => {
-    xPos++;
-    node.style.left = 10 * xPos + "px";
-    if (node.getBoundingClientRect().x > window.innerWidth) {
-      console.log("oob!");
-      node.x = 0;
-      xPos = 0;
+    xPos += xVel;
+    yPos += yVel;
+    node.style.left = xPos + "px";
+    node.style.top = yPos + "px";
+    const rect = node.getBoundingClientRect();
+    if (rect.x < 0) {
+      xVel *= -1;
+    }
+    if (rect.y < 0) {
+      yVel *= -1;
+    }
+    if (rect.x + rect.width > window.innerWidth) {
+      xVel *= -1;
+    }
+    if (rect.y + rect.height > window.innerHeight) {
+      yVel *= -1;
     }
   }, 35)
 }
