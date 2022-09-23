@@ -2,13 +2,13 @@ function block() {
   const id = "banner";
   if (!document.getElementById(id)) {
     const node = document.createElement("img");
-    node.setAttribute("src", chrome.runtime.getURL("images/peka.png"))
-    node.setAttribute("alt", "peka")
+    node.setAttribute("src", chrome.runtime.getURL("images/peka.png"));
+    node.setAttribute("alt", "peka");
     node.id = id;
 
     document.body.appendChild(node);
   }
-  let node = document.getElementById(id)
+  let node = document.getElementById(id);
   let xPos = 0;
   let yPos = 0;
 
@@ -35,7 +35,7 @@ function block() {
     if (rect.y + rect.height > window.innerHeight) {
       yVel *= -1;
     }
-  }, 35)
+  }, 35);
 }
 function validate() {
   console.log("validating");
@@ -53,8 +53,23 @@ function validate() {
     }
   });
 }
+
+function blockTelegramSearch() {
+  let href = location.href.toString();
+  if (href.includes("telegram.org")) {
+    let search = document.querySelector("[placeholder='Search']");
+      console.log("Search is", search)
+      if (search === null) {
+          setTimeout(blockTelegramSearch, 1000)
+      } else {
+        search.style.visibility = "hidden";
+      }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function (event) {
   validate();
+  blockTelegramSearch();
 });
 
 // chrome.runtime.onMessage.addListener((request) => {
