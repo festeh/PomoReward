@@ -24,7 +24,7 @@ function save() {
 }
 
 const DEFAULTS = {
-  blocked: ["sosi"]
+  blocked: ["web.telegram.org"]
 }
 
 function init() {
