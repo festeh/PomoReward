@@ -38,15 +38,11 @@ function block() {
   }, 35);
 }
 function validate() {
-  console.log("validating");
   chrome.storage.local.get({ blocked: [] }, (result) => {
     let href = location.href.toString();
-    console.log("result", result);
     if (result.blocked.length > 0) {
       result.blocked.forEach((blockedSite) => {
-        console.log("trying", blockedSite, "for", href);
         if (href.includes(blockedSite)) {
-          console.log("site blocked: ", href);
           block();
         }
       });
@@ -58,18 +54,30 @@ function blockTelegramSearch() {
   let href = location.href.toString();
   if (href.includes("telegram.org")) {
     let search = document.querySelector("[placeholder='Search']");
-      console.log("Search is", search)
-      if (search === null) {
-          setTimeout(blockTelegramSearch, 1000)
-      } else {
-        search.style.visibility = "hidden";
-      }
+    if (search === null) {
+      setTimeout(blockTelegramSearch, 1000);
+    } else {
+      search.style.visibility = "hidden";
+    }
   }
+}
+
+function blockTelegramMessageSearch() {
+  let search = document.getElementsByClassName("tgico-search");
+  Array.from(search).forEach(function (item) {
+    item.style.visibility = "hidden";
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
   validate();
   blockTelegramSearch();
+});
+
+document.addEventListener("mousedown", function (event) {
+  if (location.href.toString().includes("telegram.org")) {
+    setTimeout(blockTelegramMessageSearch, 100);
+  }
 });
 
 // chrome.runtime.onMessage.addListener((request) => {
